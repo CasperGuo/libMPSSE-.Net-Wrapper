@@ -29,6 +29,8 @@ namespace Test
 };
 
             var lcd = new I2CLCD(0x27, 2, 1, 0, 4, 5, 6, 7, 3, BacklightPolarity.Positive);
+
+            
             lcd.Begin(16, 2);
 
             //for (int i = 0; i < charBitmap.Count; i++)
@@ -36,21 +38,21 @@ namespace Test
             //    lcd.CreateChar(i, charBitmap[i]);
             //}
 
-            //for (int i = 0; i < 3; i++)
-            //{
-            //    lcd.BackLight();
-            //    StopwatchDelay.Delay(250);
-            //    lcd.NoBacklight();
-            //    StopwatchDelay.Delay(250);
-            //}
+            for (int i = 0; i < 3; i++)
+            {
+                lcd.BackLight();
+                StopwatchDelay.Delay(100);
+                lcd.NoBacklight();
+                StopwatchDelay.Delay(100);
+            }
 
             lcd.BackLight();
             lcd.Home();
             lcd.SetCursor(0, 0); //Start at character 4 on line 0
-            lcd.Write("Hello, world!");
+            lcd.Write("FT232H, LCD, C#");
             StopwatchDelay.Delay(250);
             lcd.SetCursor(0, 1);
-            lcd.Write("HI!YourDuino.com");
+            lcd.Write("github.com/jakkaj");
 
 
 

@@ -17,7 +17,7 @@ namespace Test.LCD
 
         private I2CDevice _i2cDevice;
 
-        private const int ConnectionSpeed = 4000; // Hz
+        private const int ConnectionSpeed = 40000; // Hz
         private const int LatencyTimer = 255; // Hz
 
 

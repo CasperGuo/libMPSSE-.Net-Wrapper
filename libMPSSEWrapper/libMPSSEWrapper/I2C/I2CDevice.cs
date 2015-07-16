@@ -89,7 +89,7 @@ namespace libMPSSEWrapper.I2C
             //var array = BitConverter.GetBytes(Convert.ToUInt32(value));
             int writtenAmount;
 
-            var result = Write(array, array.Length, out writtenAmount, FtI2CTransferOptions.StartBit);
+            var result = Write(array, array.Length, out writtenAmount, FtI2CTransferOptions.StartBit | FtI2CTransferOptions.StopBit);
 
             return result == FtResult.Ok;
         }

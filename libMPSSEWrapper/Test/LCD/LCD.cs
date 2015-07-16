@@ -18,7 +18,7 @@ namespace Test.LCD
 
         private void _command(int value)
         {
-            
+            Send(value, Constants.COMMAND);
         }
 
         protected abstract void Send(int value, int mode);
@@ -255,7 +255,7 @@ namespace Test.LCD
             foreach (var d in value)
             {
                 var i = (int) d;
-
+                var i2 = (uint) d;
                 Send(i, Constants.DATA);
             }
            
