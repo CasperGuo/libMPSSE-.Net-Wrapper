@@ -40,8 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\I2CChannelNotConnectedException.cs" />
     <Compile Include="Exceptions\SpiChannelNotConnectedException.cs" />
+    <Compile Include="I2C\I2CConfiguration.cs" />
+    <Compile Include="I2C\I2CDevice.cs" />
     <Compile Include="LibMpsse.cs" />
+    <Compile Include="LibMpsseI2C.cs" />
     <Compile Include="LibMpsseSPI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Spi\SpiConfiguration.cs" />
@@ -49,6 +53,7 @@
     <Compile Include="Types\FtChannelConfig.cs" />
     <Compile Include="Types\FtConfigOptions.cs" />
     <Compile Include="Types\FtDeviceInfo.cs" />
+    <Compile Include="Types\FtI2CTransferOptions.cs" />
     <Compile Include="Types\FtResult.cs" />
     <Compile Include="Types\FtSpiTransferOptions.cs" />
   </ItemGroup>
