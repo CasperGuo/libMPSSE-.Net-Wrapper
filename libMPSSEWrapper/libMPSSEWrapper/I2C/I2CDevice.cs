@@ -15,14 +15,16 @@ namespace libMPSSEWrapper.I2C
         private static FtChannelConfig _currentGlobalConfig;
 
         private FtChannelConfig _cfg;
+        private readonly int _deviceAddress;
 
         private bool _isDisposed;
         private I2CConfiguration _i2cConfig;
 
-        public I2CDevice(FtChannelConfig config)
+        public I2CDevice(FtChannelConfig config, int deviceAddress)
         {
             _i2cConfig = _i2cConfig ?? I2CConfiguration.ChannelZeroConfiguration;
             _cfg = config;
+            _deviceAddress = deviceAddress;
             InitLibAndHandle();
         }
 
@@ -71,15 +73,26 @@ namespace libMPSSEWrapper.I2C
 
         }
 
-        protected FtResult Write(int deviceAddress, byte[] buffer, int sizeToTransfer, out int sizeTransfered, FtI2CTransferOptions options)
+        public bool Write(int value)
         {
-            return LibMpsseI2C.I2C_DeviceWrite(_handle, deviceAddress, sizeToTransfer, buffer, out sizeTransfered, options);
+            var array = BitConverter.GetBytes(value);
+
+            int writtenAmount;
+
+            var result = Write(array, array.Length, out writtenAmount, FtI2CTransferOptions.FastTransferBytes);
+
+            return result == FtResult.Ok;
         }
 
-        protected FtResult Read(int deviceAddress, byte[] buffer, int sizeToTransfer, out int sizeTransfered, FtI2CTransferOptions options)
+        public FtResult Write(byte[] buffer, int sizeToTransfer, out int sizeTransfered, FtI2CTransferOptions options)
+        {
+            return LibMpsseI2C.I2C_DeviceWrite(_handle, _deviceAddress, sizeToTransfer, buffer, out sizeTransfered, options);
+        }
+
+        public FtResult Read(byte[] buffer, int sizeToTransfer, out int sizeTransfered, FtI2CTransferOptions options)
         {
             //EnforceRightConfiguration();
-            return LibMpsseI2C.I2C_DeviceRead(_handle, deviceAddress, sizeToTransfer, buffer, out sizeTransfered, options);
+            return LibMpsseI2C.I2C_DeviceRead(_handle, _deviceAddress, sizeToTransfer, buffer, out sizeTransfered, options);
         }
 
         protected static void CheckResult(FtResult result)

@@ -22,8 +22,15 @@ namespace Test
                 LatencyTimer = LatencyTimer,
                 configOptions = FtConfigOptions.Mode0 | FtConfigOptions.CsDbus3 | FtConfigOptions.CsActivelow
             };
-            var c = new I2CDevice(adcSpiConfig);
+           // var c = new I2CDevice(adcSpiConfig);
 
+            //var b = new byte[1];
+            //b[0] = 0x02;
+            //int transferred;
+
+            
+
+            //var result = c.Write(0x27, b, 0, out transferred, FtI2CTransferOptions.FastTransfer);
 
             Console.Read();
           //  Debug.WriteLine(result);

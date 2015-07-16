@@ -43,6 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LCD\I2CLCD.cs" />
+    <Compile Include="LCD\LCD.cs" />
+    <Compile Include="LCD\LCDEnum.cs" />
+    <Compile Include="LCD\StopwatchDelay.cs" />
     <Compile Include="Maxim186.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
