@@ -77,7 +77,7 @@ namespace libMPSSEWrapper.I2C
         {
             int writtenAmount;
 
-            var result = Write(array, array.Length, out writtenAmount, FtI2CTransferOptions.FastTransferBytes);
+            var result = Write(array, array.Length, out writtenAmount, FtI2CTransferOptions.StartBit);
 
             return result == FtResult.Ok;
         }
@@ -87,12 +87,9 @@ namespace libMPSSEWrapper.I2C
             var array = new byte[1];
             array[0] = Convert.ToByte(value);
             //var array = BitConverter.GetBytes(Convert.ToUInt32(value));
-
-
-
             int writtenAmount;
 
-            var result = Write(array, array.Length, out writtenAmount, FtI2CTransferOptions.FastTransferBytes);
+            var result = Write(array, array.Length, out writtenAmount, FtI2CTransferOptions.StartBit);
 
             return result == FtResult.Ok;
         }
@@ -106,6 +103,18 @@ namespace libMPSSEWrapper.I2C
         {
             //EnforceRightConfiguration();
             return LibMpsseI2C.I2C_DeviceRead(_handle, _deviceAddress, sizeToTransfer, buffer, out sizeTransfered, options);
+        }
+
+        public byte[] Read(int sizeToTransfer)
+        {
+            byte[] buffer = new byte[1];
+            int sizeTransfered = 0;
+            var result = LibMpsseI2C.I2C_DeviceRead(
+                _handle, _deviceAddress,
+                sizeToTransfer, buffer, out sizeTransfered, FtI2CTransferOptions.StartBit);
+
+            CheckResult(result);
+            return buffer;
         }
 
         protected static void CheckResult(FtResult result)

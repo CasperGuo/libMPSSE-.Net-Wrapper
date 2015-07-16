@@ -254,7 +254,9 @@ namespace Test.LCD
         {
             foreach (var d in value)
             {
-                Send(Convert.ToInt32(d), Constants.DATA);
+                var i = (int) d;
+
+                Send(i, Constants.DATA);
             }
            
             return 1;

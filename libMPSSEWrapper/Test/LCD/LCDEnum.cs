@@ -7,6 +7,9 @@ namespace Test.LCD
 {
     public static class Constants
     {
+        public const int OUTPUT = 1;
+        public const int INPUT = 0;
+
         public const int HomeClearExec = 2000;
         public const int ClearDisplay = 0x01;
         public const int ReturnHome = 0x02;

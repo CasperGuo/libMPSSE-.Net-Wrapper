@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using libMPSSEWrapper;
 using libMPSSEWrapper.I2C;
@@ -15,32 +16,70 @@ namespace Test
         static void Main(string[] args)
         {
 
-            var start = 0x21;
-            var end = 0x28;
+            List<int[]> charBitmap = new List<int[]>{
+    new int[] { 0xc, 0x12, 0x12, 0xc, 0, 0, 0, 0 },
+   new int[]{ 0x6, 0x9, 0x9, 0x6, 0, 0, 0, 0 },
+   new int[] { 0x0, 0x6, 0x9, 0x9, 0x6, 0, 0, 0x0 },
+   new int[] { 0x0, 0xc, 0x12, 0x12, 0xc, 0, 0, 0x0 },
+   new int[] { 0x0, 0x0, 0xc, 0x12, 0x12, 0xc, 0, 0x0 },
+   new int[] { 0x0, 0x0, 0x6, 0x9, 0x9, 0x6, 0, 0x0 },
+   new int[] { 0x0, 0x0, 0x0, 0x6, 0x9, 0x9, 0x6, 0x0 },
+   new int[]{ 0x0, 0x0, 0x0, 0xc, 0x12, 0x12, 0xc, 0x0 }
 
-            for (var address = start; address < end; address++)
-            {
-                Console.WriteLine(address);
-                var lcd = new I2CLCD(address, 2, 1, 0, 4, 5, 6, 7, 3, BacklightPolarity.Positive);
-                lcd.Begin(16, 2);
-                //for (int i = 0; i < 3; i++)
-                //{
-                //    lcd.BackLight();
-                //    StopwatchDelay.Delay(250);
-                //    lcd.NoBacklight();
-                //    StopwatchDelay.Delay(250);
-                //}
+};
 
-                lcd.BackLight();
+            var lcd = new I2CLCD(0x27, 2, 1, 0, 4, 5, 6, 7, 3, BacklightPolarity.Positive);
+            lcd.Begin(16, 2);
 
-                lcd.SetCursor(0, 0); //Start at character 4 on line 0
-                lcd.Write("Hello, world!");
-                StopwatchDelay.Delay(250);
-                lcd.SetCursor(0, 1);
-                lcd.Write("HI!YourDuino.com");
-                
+            //for (int i = 0; i < charBitmap.Count; i++)
+            //{
+            //    lcd.CreateChar(i, charBitmap[i]);
+            //}
 
-            }
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    lcd.BackLight();
+            //    StopwatchDelay.Delay(250);
+            //    lcd.NoBacklight();
+            //    StopwatchDelay.Delay(250);
+            //}
+
+            lcd.BackLight();
+            lcd.Home();
+            lcd.SetCursor(0, 0); //Start at character 4 on line 0
+            lcd.Write("Hello, world!");
+            StopwatchDelay.Delay(250);
+            lcd.SetCursor(0, 1);
+            lcd.Write("HI!YourDuino.com");
+
+
+
+            //var start = 0x21;
+            //var end = 0x28;
+
+            //for (var address = start; address < end; address++)
+            //{
+            //    Console.WriteLine(address);
+            //    var lcd = new I2CLCD(address, 2, 1, 0, 4, 5, 6, 7, 3, BacklightPolarity.Positive);
+            //    lcd.Begin(16, 2);
+            //    //for (int i = 0; i < 3; i++)
+            //    //{
+            //    //    lcd.BackLight();
+            //    //    StopwatchDelay.Delay(250);
+            //    //    lcd.NoBacklight();
+            //    //    StopwatchDelay.Delay(250);
+            //    //}
+
+            //    lcd.BackLight();
+
+            //    lcd.SetCursor(0, 0); //Start at character 4 on line 0
+            //    lcd.Write("Hello, world!");
+            //    StopwatchDelay.Delay(250);
+            //    lcd.SetCursor(0, 1);
+            //    lcd.Write("HI!YourDuino.com");
+
+
+            //}
 
             Console.WriteLine("Finished");
 

@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LCD\I2CIO.cs" />
     <Compile Include="LCD\I2CLCD.cs" />
     <Compile Include="LCD\LCD.cs" />
     <Compile Include="LCD\LCDEnum.cs" />
