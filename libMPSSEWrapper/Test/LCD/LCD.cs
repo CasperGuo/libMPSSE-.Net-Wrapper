@@ -23,7 +23,7 @@ namespace Test.LCD
 
         protected abstract void Send(int value, int mode);
 
-        public async virtual void Begin(int cols, int rows, int charSize = Constants.LCD_5x8DOTS)
+        public virtual void Begin(int cols, int rows, int charSize = Constants.LCD_5x8DOTS)
         {
             if (rows > 1)
             {
@@ -248,6 +248,16 @@ namespace Test.LCD
         public virtual void SetBacklight(int value)
         {
             
+        }
+
+        public virtual int Write(string value)
+        {
+            foreach (var d in value)
+            {
+                Send(Convert.ToInt32(d), Constants.DATA);
+            }
+           
+            return 1;
         }
 
         public virtual int Write(int value)

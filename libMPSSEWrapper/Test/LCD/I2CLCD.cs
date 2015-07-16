@@ -25,14 +25,14 @@ namespace Test.LCD
         private int _backlightPinMask;
         private int _backlightStsMask;
 
-        private I2CDevice _i2cio;
+        private static I2CDevice _i2cio;
 
         private int _en;
         private int _rw;
         private int _rs;
         int[] _dataPins = new int[4];
 
-        private const int ConnectionSpeed = 40000; // Hz
+        private const int ConnectionSpeed = 100; // Hz
         private const int LatencyTimer = 255; // Hz
 
         public I2CLCD(int address)
@@ -76,9 +76,13 @@ namespace Test.LCD
                 LatencyTimer = LatencyTimer
             };
 
-            _i2cio  = new I2CDevice(adci2cConfig, _address);
+            if (_i2cio == null)
+            {
+                _i2cio = new I2CDevice(adci2cConfig, _address);
 
-            _i2cio.Write(0);  // Set the entire port to LOW
+                _i2cio.Write(0);  // Set the entire port to LOW
+            }
+           
 
             return 1;
         }
@@ -125,12 +129,22 @@ namespace Test.LCD
                 mode = _rs;
             }
 
-            pinMapValue |= mode | _backlightStsMask;
-            _pulseEnable(pinMapValue);
+            _notpulse(value, mode);
+
+            //pinMapValue |= mode | _backlightStsMask;
+            //_pulseEnable(pinMapValue);
+        }
+
+        private void _notpulse(int data, int mode)
+        {
+            _i2cio.Write(new byte[2]{Convert.ToByte(mode), Convert.ToByte(data)});
+            
         }
 
         private void _pulseEnable(int data)
         {
+            //_i2cio.Write(data);
+           // return;
             _i2cio.Write(data | _en);   // En HIGH
             _i2cio.Write(data & ~_en);  // En LOW
         }
@@ -170,7 +184,12 @@ namespace Test.LCD
                 {
                     _backlightStsMask = _backlightPinMask & LCD_NOBACKLIGHT;
                 }
-                _i2cio.Write(_backlightStsMask);
+
+                if (_i2cio != null)
+                {
+                    _i2cio.Write(_backlightStsMask);
+                }
+               
             }
         }
 

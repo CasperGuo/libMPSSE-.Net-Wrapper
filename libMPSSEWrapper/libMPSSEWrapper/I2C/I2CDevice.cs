@@ -73,9 +73,22 @@ namespace libMPSSEWrapper.I2C
 
         }
 
+        public bool Write(byte[] array)
+        {
+            int writtenAmount;
+
+            var result = Write(array, array.Length, out writtenAmount, FtI2CTransferOptions.FastTransferBytes);
+
+            return result == FtResult.Ok;
+        }
+
         public bool Write(int value)
         {
-            var array = BitConverter.GetBytes(value);
+            var array = new byte[1];
+            array[0] = Convert.ToByte(value);
+            //var array = BitConverter.GetBytes(Convert.ToUInt32(value));
+
+
 
             int writtenAmount;
 
