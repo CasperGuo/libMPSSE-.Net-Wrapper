@@ -46,15 +46,31 @@ namespace Test
                 StopwatchDelay.Delay(100);
             }
 
+            
+
             lcd.BackLight();
             lcd.Home();
             lcd.SetCursor(0, 0); //Start at character 4 on line 0
             lcd.Write("FT232H, LCD, C#");
             StopwatchDelay.Delay(250);
             lcd.SetCursor(0, 1);
-            lcd.Write("github.com/jakkaj");
-
-
+            lcd.Write("git.io/vmEdE");
+            //var rn = new Random((int)DateTime.Now.Ticks);
+            //while (true)
+            //{
+            //    lcd.Home();
+            //    // Do a little animation by writing to the same location
+            //    for (int i = 0; i < 2; i++)
+            //    {
+            //        for (int j = 0; j < 16; j++)
+            //        {
+            //            lcd.Write((char)(rn.Next(7)));
+            //        }
+            //        lcd.SetCursor(0, 1);
+            //    }
+            //    StopwatchDelay.Delay(200);
+            //}
+            
 
             //var start = 0x21;
             //var end = 0x28;
